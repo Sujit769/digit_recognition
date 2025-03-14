@@ -16,9 +16,16 @@ if os.path.exists(model_path):
 else:
     st.error(f"Model file '{model_path}' not found. Make sure it is in the deployed directory.")
 
+
+
+
 # Streamlit UI
 st.title("Handwritten Digit Recognition")
 st.write("Draw a digit below and click 'Predict'")
+
+# Initialize session state for canvas
+if 'canvas_key' not in st.session_state:
+    st.session_state.canvas_key = "canvas1"
 
 # Create a drawing canvas
 canvas_result = st_canvas(
@@ -29,7 +36,7 @@ canvas_result = st_canvas(
     height=280, width=280,
     drawing_mode="freedraw",
     update_streamlit=True,
-    key="canvas",
+    key=st.session_state.canvas_key,
 )
 
 # Function to preprocess the canvas drawing
@@ -55,8 +62,12 @@ if st.button("Predict"):
         st.write("Please draw a digit before clicking 'Predict'!")
 
 if st.button("Clear Canvas"):
-    st.session_state.canvas_key = "new_canvas"  # Change the key to reset the canvas
-    st.experimental_rerun() 
+    # Toggle between two keys to reset the canvas
+    if st.session_state.canvas_key == "canvas1":
+        st.session_state.canvas_key = "canvas2"
+    else:
+        st.session_state.canvas_key = "canvas1"
+    st.rerun() 
 
 # Display the processed image
 if canvas_result.image_data is not None:
