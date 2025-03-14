@@ -69,7 +69,3 @@ if st.button("Clear Canvas"):
         st.session_state.canvas_key = "canvas1"
     st.rerun() 
 
-# Display the processed image
-if canvas_result.image_data is not None:
-    processed_image = preprocess_canvas(canvas_result.image_data)
-    st.image(processed_image.reshape(28,28), caption="Processed Image", width=150)
