@@ -55,7 +55,8 @@ if st.button("Predict"):
         st.write("Please draw a digit before clicking 'Predict'!")
 
 if st.button("Clear Canvas"):
-    st.rerun()  # This refreshes the Streamlit app
+    st.session_state.canvas_key = "new_canvas"  # Change the key to reset the canvas
+    st.experimental_rerun() 
 
 # Display the processed image
 if canvas_result.image_data is not None:
