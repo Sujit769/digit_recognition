@@ -2,11 +2,17 @@ import streamlit as st
 import numpy as np
 import tensorflow as tf
 import cv2
+import os
+import tensorflow as tf
 from streamlit_drawable_canvas import st_canvas
 
 # Load the trained CNN model
-model = tf.keras.models.load_model("digit_recognition_model.h5")
+model_path = "digit_recognition_model.h5"
 
+if os.path.exists(model_path):
+    model = tf.keras.models.load_model(model_path)
+else:
+    st.error(f"Model file '{model_path}' not found. Make sure it is in the deployed directory.")
 # Streamlit UI
 st.title("Handwritten Digit Recognition")
 st.write("Draw a digit below and click 'Predict'")
