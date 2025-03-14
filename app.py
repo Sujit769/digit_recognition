@@ -7,7 +7,7 @@ import tensorflow as tf
 from streamlit_drawable_canvas import st_canvas
 
 # Load the trained CNN model
-model_path = "digit_recognition_model.h5"
+model_path = "digit_recognition_model.keras"
 
 if os.path.exists(model_path):
     model = tf.keras.models.load_model(model_path)
